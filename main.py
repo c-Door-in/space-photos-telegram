@@ -21,8 +21,9 @@ def get_spacex_images_path(flight_id):
 
 def main():
     flight_id = '5fe3b11eb3467846b324216c'
-    for spacex_image_path in get_spacex_images_path(flight_id):
-        print(spacex_image_path)
+    for image_id, spacex_image_url in enumerate(get_spacex_images_path(flight_id)):
+        image_name = f'space{image_id}.jpeg'
+        download_image(spacex_image_url, image_name)
 
 
 if __name__ == '__main__':
