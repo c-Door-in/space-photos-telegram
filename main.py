@@ -19,11 +19,15 @@ def get_spacex_images_path(flight_id):
     return response.json()['links']['flickr']['original']
 
 
-def main():
+def fetch_spacex_one_launch():
     flight_id = '5fe3b11eb3467846b324216c'
     for image_id, spacex_image_url in enumerate(get_spacex_images_path(flight_id)):
         image_name = f'space{image_id}.jpeg'
         download_image(spacex_image_url, image_name)
+
+
+def main():
+    fetch_spacex_one_launch()
 
 
 if __name__ == '__main__':
