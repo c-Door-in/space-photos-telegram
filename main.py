@@ -18,8 +18,7 @@ def get_spacex_images_path(flight_id):
     return response.json()['links']['flickr']['original']
 
 
-def fetch_spacex_one_launch():
-    flight_id = '5fe3b11eb3467846b324216c'
+def fetch_spacex_one_launch(flight_id):
     for image_id, spacex_image_url in enumerate(get_spacex_images_path(flight_id)):
         ext = parse_url_file_ext(spacex_image_url)
         image_name = f'space{image_id}{ext}'
@@ -34,7 +33,8 @@ def parse_url_file_ext(url):
 
 def main():
     os.makedirs('images', exist_ok=True)
-    fetch_spacex_one_launch()
+    flight_id = '5fe3b11eb3467846b324216c'
+    fetch_spacex_one_launch(flight_id)
 
 
 if __name__ == '__main__':
