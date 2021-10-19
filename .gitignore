@@ -112,6 +112,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+<<<<<<< HEAD
 
 # Working files and directories
 /images
+=======
+>>>>>>> parent of bac2b4c (Add image directory to gitignore)
