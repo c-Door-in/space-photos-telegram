@@ -114,4 +114,4 @@ dmypy.json
 .pyre/
 
 # Working files and directories
-.images/
+images/
