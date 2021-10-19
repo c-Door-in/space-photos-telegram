@@ -2,6 +2,8 @@ import requests
 import os
 from urllib.parse import urlsplit, unquote
 
+from environs import Env
+
 
 def download_image(url, image_name):
     response = requests.get(url)
@@ -32,9 +34,14 @@ def parse_url_file_ext(url):
 
 
 def main():
+    env = Env()
+    env.read_env()
+    flight_id = env('FLIGHT_ID')
+    nasa_api_token = env('NASA_API_TOKEN')
+
     os.makedirs('images', exist_ok=True)
-    flight_id = '5fe3b11eb3467846b324216c'
     fetch_spacex_one_launch(flight_id)
+    
 
 
 if __name__ == '__main__':
