@@ -21,22 +21,6 @@ def download_image(url, src_name, image_name):
         return file.write(response.content)
 
 
-def parse_spacex(flight_id):
-    spacex_api_url = f'https://api.spacexdata.com/v4/launches/{flight_id}'
-    response = requests.get(spacex_api_url)
-    response.raise_for_status()
-    return response.json()
-
-
-def fetch_spacex_one_launch_images(flight_id):
-    images_url_list = parse_spacex(flight_id)['links']['flickr']['original']
-    for image_id, image_url in enumerate(images_url_list):
-        src_name = 'space'
-        image_name = f'{src_name}_{image_id}'
-        download_image(image_url, src_name, image_name)
-    return
-
-
 def parse_nasa_apod(api_key, image_count):
     url = 'https://api.nasa.gov/planetary/apod'
     params = {
@@ -78,7 +62,7 @@ def format_url_image_date(src_image_date):
 def fetch_nasa_epic_images(api_key):
     for image_id, image_obj in enumerate(parse_nasa_epic(api_key)):
         src_name = 'nasa_epic'
-        image_name = f'{src_name}{image_id}'
+        image_name = f'{src_name}_{image_id}'
         src_image_name = image_obj['image']
         src_image_date = format_url_image_date(image_obj['date'])
         url = (
@@ -92,13 +76,10 @@ def fetch_nasa_epic_images(api_key):
 def main():
     env = Env()
     env.read_env()
-    flight_id = env('FLIGHT_ID')
-    nasa_api_token = env('NASA_API_TOKEN')
-
+    api_key = env('NASA_API_TOKEN')
     os.makedirs('images', exist_ok=True)
-    # fetch_spacex_one_launch_images(flight_id)
-    # fetch_nasa_apod_images(nasa_api_token, 30)
-    fetch_nasa_epic_images(nasa_api_token)
+    fetch_nasa_apod_images(api_key, image_count='30')
+    fetch_nasa_epic_images(api_key)
 
 
 if __name__ == '__main__':
