@@ -115,3 +115,4 @@ dmypy.json
 
 # Working files and directories
 images/
+test.py
