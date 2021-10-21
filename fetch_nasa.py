@@ -76,7 +76,7 @@ def fetch_nasa_epic_images(api_key):
 def main():
     env = Env()
     env.read_env()
-    api_key = env('NASA_API_TOKEN')
+    api_key = env('NASA_API_KEY', default='DEMO_KEY')
     os.makedirs('images', exist_ok=True)
     fetch_nasa_apod_images(api_key, image_count='30')
     fetch_nasa_epic_images(api_key)

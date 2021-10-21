@@ -1,9 +1,7 @@
-import requests
 import os
-from datetime import datetime
+import requests
+from random import shuffle
 from urllib.parse import urlsplit, unquote
-
-from environs import Env
 
 
 def parse_url_file_ext(url):
@@ -21,29 +19,27 @@ def download_image(url, src_name, image_name):
         return file.write(response.content)
 
 
-def parse_spacex(flight_id):
-    spacex_api_url = f'https://api.spacexdata.com/v4/launches/{flight_id}'
+def parse_spacex():
+    spacex_api_url = f'https://api.spacexdata.com/v4/launches'
     response = requests.get(spacex_api_url)
     response.raise_for_status()
-    return response.json()
+    for flight_obj in shuffle(response.json()):
+        if flight_obj['links']['flickr']['original']:
+            return flight_obj['links']['flickr']['original']
+    return
 
 
-def fetch_spacex_one_launch_images(flight_id):
-    images_url_list = parse_spacex(flight_id)['links']['flickr']['original']
-    for image_id, image_url in enumerate(images_url_list):
-        src_name = 'space'
+def fetch_spacex_launch_images():
+    for image_id, image_url in enumerate(parse_spacex()):
+        src_name = 'spacex'
         image_name = f'{src_name}_{image_id}'
         download_image(image_url, src_name, image_name)
     return
 
 
 def main():
-    env = Env()
-    env.read_env()
-    spacex_flight_id = env('SPACEX_FLIGHT_ID')
-
     os.makedirs('images', exist_ok=True)
-    fetch_spacex_one_launch_images(spacex_flight_id)
+    fetch_spacex_launch_images()
 
 
 if __name__ == '__main__':
