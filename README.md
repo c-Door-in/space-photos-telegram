@@ -10,8 +10,9 @@ The service uses:
 ## Install requirements
 
 Python3 should be already installed. Then use pip (or pip3, if there is a conflict with Python2) to install dependencies:
-
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 ## Create your own Telegram bot
 Create a bot by using instructions of `@botfather` in Telegram.
 Copy `TOKEN` that @botfather give you. 
@@ -35,14 +36,17 @@ PUBLIC_PERIOD=[any delay value in seconds]
 
 # How to start
 - Get new SpaceX photos with
-
-```python fetch_spacex.py```
+```
+python fetch_spacex.py
+```
 - Get new NASA photos with
-
-```python fetch_nasa.py```
+```
+python fetch_nasa.py
+```
 - Launch public service
-
-```python public_photo.py```
+```
+python public_photo.py
+```
 
 # Project Goals
 The code is written for educational purposes on online-course for web-developers [dvmn.org](https://www.dvmn.org).
