@@ -20,7 +20,7 @@ def main():
     env.read_env()
     bot = telegram.Bot(token=env('TG_TOKEN'))
     chat_id = '@spimg'
-    upload_photo(bot, chat_id, env.int('PUBLIC_PERIOD', default=86400))
+    upload_photo(bot, chat_id, env.int('PUBLISH_PERIOD', default=86400))
 
 
 if __name__ == '__main__':

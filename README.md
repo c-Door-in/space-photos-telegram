@@ -31,7 +31,7 @@ TG_TOKEN=[your telegram bot token]
 ```
 - You can change the delay your bot uses before posting the next image. By default, this is the hour. Specify new in seconds.
 ```
-PUBLIC_PERIOD=[any delay value in seconds]
+PUBLISH_PERIOD=[any delay value in seconds]
 ```
 
 # How to start
@@ -43,9 +43,9 @@ python fetch_spacex.py
 ```
 python fetch_nasa.py
 ```
-- Launch public service
+- Launch publish service
 ```
-python public_photo.py
+python publish_photo.py
 ```
 
 # Project Goals
