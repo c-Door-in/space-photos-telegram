@@ -9,11 +9,11 @@ def parse_spacex():
     spacex_api_url = f'https://api.spacexdata.com/v4/launches'
     response = requests.get(spacex_api_url)
     response.raise_for_status()
-    all_launches = response.json()
-    shuffle(all_launches)
-    for flight_obj in all_launches:
-        if flight_obj['links']['flickr']['original']:
-            return flight_obj['links']['flickr']['original']
+    all_spacex_launches = response.json()
+    shuffle(all_spacex_launches)
+    for launch in all_spacex_launches:
+        if launch['links']['flickr']['original']:
+            return launch['links']['flickr']['original']
     return
 
 
