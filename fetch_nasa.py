@@ -1,6 +1,7 @@
 import requests
 import os
 from datetime import datetime
+
 from environs import Env
 
 from file_downloader import download_image
@@ -17,7 +18,7 @@ def parse_nasa_apod(api_key, image_count):
     return response.json()
 
 
-def fetch_nasa_apod_images(api_key, image_count=''):
+def fetch_nasa_apod_images(api_key, images_directory, image_count=''):
     for image_id, res_obj in enumerate(parse_nasa_apod(api_key, image_count)):
         src_name = 'nasa_apod'
         image_name = f'{src_name}_{image_id}'
@@ -25,7 +26,7 @@ def fetch_nasa_apod_images(api_key, image_count=''):
             url = res_obj['hdurl']
         else:
             url = res_obj['url']
-        download_image(url, src_name, image_name)
+        download_image(url, src_name, images_directory, image_name)
     return
 
 
@@ -44,7 +45,7 @@ def format_url_image_date(src_image_date):
     return image_date.date().strftime('%Y/%m/%d')
 
 
-def fetch_nasa_epic_images(api_key):
+def fetch_nasa_epic_images(api_key, images_directory):
     for image_id, image_obj in enumerate(parse_nasa_epic(api_key)):
         src_name = 'nasa_epic'
         image_name = f'{src_name}_{image_id}'
@@ -55,16 +56,17 @@ def fetch_nasa_epic_images(api_key):
             f'{src_image_date}/png/{src_image_name}.png'
             f'?api_key={api_key}'
         )
-        download_image(url, src_name, image_name)
+        download_image(url, src_name, images_directory, image_name)
 
 
 def main():
     env = Env()
     env.read_env()
     api_key = env('NASA_API_KEY', default='DEMO_KEY')
-    os.makedirs('images', exist_ok=True)
-    fetch_nasa_apod_images(api_key, image_count='30')
-    fetch_nasa_epic_images(api_key)
+    images_directory = env('LOCAL_IMAGES_DIR', default='images')
+    os.makedirs(images_directory, exist_ok=True)
+    fetch_nasa_apod_images(api_key, images_directory, image_count='30')
+    fetch_nasa_epic_images(api_key, images_directory)
 
 
 if __name__ == '__main__':
