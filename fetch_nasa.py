@@ -19,8 +19,10 @@ def parse_nasa_apod_images(api_key, image_count):
 
 
 def fetch_nasa_apod_images(api_key, images_directory, image_count=''):
-    for image_id, res_obj in enumerate(parse_nasa_apod_images(api_key, image_count)):
-        url = res_obj['hdurl'] if 'hdurl' in res_obj else res_obj['url']
+    all_apod_info = parse_nasa_apod_images(api_key, image_count)
+    for image_id, apod_image_details in enumerate(all_apod_info):
+        is_hd_image = 'hdurl' in apod_image_details
+        url = apod_image_details['hdurl'] if is_hd_image else apod_image_details['url']
         local_image_path = f'{images_directory}/nasa_apod/nasa_apod_{image_id}'
         os.makedirs(os.path.dirname(local_image_path), exist_ok=True)
         download_image(url, local_image_path)
@@ -42,9 +44,9 @@ def format_url_image_date(src_image_date):
     return image_date.date().strftime('%Y/%m/%d')
 
 
-def get_epic_image_url(api_key, image_obj):
-    src_image_name = image_obj['image']
-    src_image_date = format_url_image_date(image_obj['date'])
+def get_epic_image_url(api_key, image_details):
+    src_image_name = image_details['image']
+    src_image_date = format_url_image_date(image_details['date'])
     return (
         'https://api.nasa.gov/EPIC/archive/natural/'
         f'{src_image_date}/png/{src_image_name}.png'
@@ -53,8 +55,8 @@ def get_epic_image_url(api_key, image_obj):
 
 
 def fetch_nasa_epic_images(api_key, images_directory):
-    for image_id, image_obj in enumerate(parse_nasa_epic_images(api_key)):
-        url = get_epic_image_url(api_key, image_obj)
+    for image_id, epic_image_details in enumerate(parse_nasa_epic_images(api_key)):
+        url = get_epic_image_url(api_key, epic_image_details)
         local_image_path = f'{images_directory}/nasa_epic/nasa_epic_{image_id}'
         os.makedirs(os.path.dirname(local_image_path), exist_ok=True)
         download_image(url, local_image_path)
