@@ -20,10 +20,7 @@ def parse_nasa_apod_images(api_key, image_count):
 
 def fetch_nasa_apod_images(api_key, images_directory, image_count=''):
     for image_id, res_obj in enumerate(parse_nasa_apod_images(api_key, image_count)):
-        if 'hdurl' in res_obj:
-            url = res_obj['hdurl']
-        else:
-            url = res_obj['url']
+        url = res_obj['hdurl'] if 'hdurl' in res_obj else res_obj['url']
         local_image_path = f'{images_directory}/nasa_apod/nasa_apod_{image_id}'
         os.makedirs(os.path.dirname(local_image_path), exist_ok=True)
         download_image(url, local_image_path)
