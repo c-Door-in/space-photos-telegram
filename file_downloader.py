@@ -10,10 +10,9 @@ def parse_url_file_ext(url):
     return os.path.splitext(filename)[1]
 
 
-def download_image(url, src_name, images_directory, image_name):
+def download_image(url, local_image_path):
     response = requests.get(url)
     response.raise_for_status()
     ext = parse_url_file_ext(url)
-    os.makedirs(f'{images_directory}/{src_name}', exist_ok=True)
-    with open(f'{images_directory}/{src_name}/{image_name}{ext}', 'wb') as file:
+    with open(f'{local_image_path}{ext}', 'wb') as file:
         return file.write(response.content)

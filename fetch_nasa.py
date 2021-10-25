@@ -47,8 +47,8 @@ def format_url_image_date(src_image_date):
 
 def fetch_nasa_epic_images(api_key, images_directory):
     for image_id, image_obj in enumerate(parse_nasa_epic(api_key)):
-        src_name = 'nasa_epic'
-        image_name = f'{src_name}_{image_id}'
+        local_image_path = f'{images_directory}/nasa_epic/nasa_epic_{image_id}'
+        os.makedirs(os.path.dirname(local_image_path), exist_ok=True)
         src_image_name = image_obj['image']
         src_image_date = format_url_image_date(image_obj['date'])
         url = (
@@ -56,7 +56,7 @@ def fetch_nasa_epic_images(api_key, images_directory):
             f'{src_image_date}/png/{src_image_name}.png'
             f'?api_key={api_key}'
         )
-        download_image(url, src_name, images_directory, image_name)
+        download_image(url, local_image_path)
 
 
 def main():

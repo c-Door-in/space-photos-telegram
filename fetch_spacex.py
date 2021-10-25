@@ -21,9 +21,9 @@ def parse_spacex():
 
 def fetch_spacex_launch_images(images_directory):
     for image_id, image_url in enumerate(parse_spacex()):
-        src_name = 'spacex'
-        image_name = f'{src_name}_{image_id}'
-        download_image(image_url, src_name, images_directory, image_name)
+        local_image_path = f'{images_directory}/spacex/spacex_{image_id}'
+        os.makedirs(os.path.dirname(local_image_path), exist_ok=True)
+        download_image(image_url, local_image_path)
     return
 
 
