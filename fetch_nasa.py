@@ -18,11 +18,15 @@ def parse_nasa_apod_images(api_key, image_count):
     return response.json()
 
 
+def get_better_image(image_details):
+    is_hd_image = 'hdurl' in image_details
+    return image_details['hdurl'] if is_hd_image else image_details['url']
+
+
 def fetch_nasa_apod_images(api_key, images_directory, image_count=''):
     all_apod_info = parse_nasa_apod_images(api_key, image_count)
     for image_id, apod_image_details in enumerate(all_apod_info):
-        is_hd_image = 'hdurl' in apod_image_details
-        url = apod_image_details['hdurl'] if is_hd_image else apod_image_details['url']
+        url = get_better_image(apod_image_details)
         local_image_path = f'{images_directory}/nasa_apod/nasa_apod_{image_id}'
         os.makedirs(os.path.dirname(local_image_path), exist_ok=True)
         download_image(url, local_image_path)
