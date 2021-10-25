@@ -58,7 +58,8 @@ def get_epic_image_url(image_details):
 
 
 def fetch_nasa_epic_images(api_key, images_directory):
-    for image_id, epic_image_details in enumerate(parse_nasa_epic_images(api_key)):
+    all_epic_info = parse_nasa_epic_images(api_key)
+    for image_id, epic_image_details in enumerate(all_epic_info):
         url = get_epic_image_url(epic_image_details)
         params = {'api_key': api_key}
         local_image_path = f'{images_directory}/nasa_epic/nasa_epic_{image_id}'
