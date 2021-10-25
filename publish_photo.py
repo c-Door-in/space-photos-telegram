@@ -20,7 +20,7 @@ def main():
     env.read_env()
     images_directory = env('LOCAL_IMAGES_DIR', default='images')
     bot = telegram.Bot(token=env('TG_TOKEN'))
-    chat_id = '@spimg'
+    chat_id = env('CHAT_ID')
     upload_photo(bot, chat_id, images_directory, env.int('PUBLISH_PERIOD', default=86400))
 
 

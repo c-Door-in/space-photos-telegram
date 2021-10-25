@@ -29,6 +29,10 @@ NASA_API_KEY=[your nasa api key]
 ```
 TG_TOKEN=[your telegram bot token]
 ```
+- Put your Telegram channel `chat_id`.
+```
+CHAT_ID=[@your_channel_chat_id]
+```
 - You can change the delay your bot uses before posting the next image. By default, this is the hour. Specify new in seconds.
 ```
 PUBLISH_PERIOD=[any delay value in seconds]
