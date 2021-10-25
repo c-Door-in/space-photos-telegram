@@ -19,7 +19,7 @@ def parse_nasa_apod_images(api_key, image_count):
 
 
 def fetch_nasa_apod_images(api_key, images_directory, image_count=''):
-    for image_id, res_obj in enumerate(parse_nasa_apod_information(api_key, image_count)):
+    for image_id, res_obj in enumerate(parse_nasa_apod_images(api_key, image_count)):
         if 'hdurl' in res_obj:
             url = res_obj['hdurl']
         else:
