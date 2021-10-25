@@ -6,8 +6,8 @@ from environs import Env
 
 
 def upload_photo(bot, chat_id, images_directory, period):
-    for dir in listdir('images'):
-        for file in listdir(f'images/{dir}'):
+    for dir in listdir(images_directory):
+        for file in listdir(f'{images_directory}/{dir}'):
             bot.send_photo(
                 chat_id=chat_id,
                 photo=open(f'{images_directory}/{dir}/{file}', 'rb')
