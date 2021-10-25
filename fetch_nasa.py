@@ -7,7 +7,7 @@ from environs import Env
 from file_downloader import download_image
 
 
-def parse_nasa_apod(api_key, image_count):
+def parse_nasa_apod_images(api_key, image_count):
     url = 'https://api.nasa.gov/planetary/apod'
     params = {
         'api_key': api_key,
@@ -19,7 +19,7 @@ def parse_nasa_apod(api_key, image_count):
 
 
 def fetch_nasa_apod_images(api_key, images_directory, image_count=''):
-    for image_id, res_obj in enumerate(parse_nasa_apod(api_key, image_count)):
+    for image_id, res_obj in enumerate(parse_nasa_apod_information(api_key, image_count)):
         src_name = 'nasa_apod'
         image_name = f'{src_name}_{image_id}'
         if 'hdurl' in res_obj:
@@ -30,7 +30,7 @@ def fetch_nasa_apod_images(api_key, images_directory, image_count=''):
     return
 
 
-def parse_nasa_epic(api_key):
+def parse_nasa_epic_images(api_key):
     url = 'https://api.nasa.gov/EPIC/api/natural/images'
     params = {
         'api_key': api_key,
@@ -56,7 +56,7 @@ def get_image_url_from_epic_object(api_key, image_obj):
 
 
 def fetch_nasa_epic_images(api_key, images_directory):
-    for image_id, image_obj in enumerate(parse_nasa_epic(api_key)):
+    for image_id, image_obj in enumerate(parse_nasa_epic_images(api_key)):
         url = get_image_url_from_epic_object(api_key, image_obj)
         local_image_path = f'{images_directory}/nasa_epic/nasa_epic_{image_id}'
         os.makedirs(os.path.dirname(local_image_path), exist_ok=True)

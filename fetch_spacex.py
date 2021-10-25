@@ -7,7 +7,7 @@ from environs import Env
 from file_downloader import download_image
 
 
-def parse_spacex():
+def parse_spacex_launch_images():
     spacex_api_url = f'https://api.spacexdata.com/v4/launches'
     response = requests.get(spacex_api_url)
     response.raise_for_status()
@@ -20,7 +20,7 @@ def parse_spacex():
 
 
 def fetch_spacex_launch_images(images_directory):
-    for image_id, image_url in enumerate(parse_spacex()):
+    for image_id, image_url in enumerate(parse_spacex_launch_images()):
         local_image_path = f'{images_directory}/spacex/spacex_{image_id}'
         os.makedirs(os.path.dirname(local_image_path), exist_ok=True)
         download_image(image_url, local_image_path)
