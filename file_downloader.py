@@ -6,8 +6,7 @@ from urllib.parse import urlsplit, unquote
 
 def parse_url_file_ext(url):
     path = unquote(urlsplit(url).path)
-    filename = os.path.basename(path)
-    return os.path.splitext(filename)[1]
+    return os.path.splitext(path)[1]
 
 
 def download_image(url, local_image_path):
