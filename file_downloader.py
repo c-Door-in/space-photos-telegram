@@ -1,6 +1,7 @@
 import os
-import requests
 from urllib.parse import urlsplit, unquote
+
+import requests
 
 
 def parse_url_file_ext(url):

@@ -1,7 +1,7 @@
 import os
-import requests
 from random import shuffle
 
+import requests
 from environs import Env
 
 from file_downloader import download_image

@@ -1,7 +1,7 @@
-import telegram
 import time
 from os import listdir
 
+import telegram
 from environs import Env
 
 
