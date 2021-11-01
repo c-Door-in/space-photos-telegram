@@ -30,7 +30,6 @@ def fetch_nasa_apod_images(api_key, images_directory, image_count=''):
     for image_id, apod_image_details in enumerate(all_apod_info):
         url = get_better_image(apod_image_details)
         local_image_path = f'{local_path}/nasa_apod_{image_id}'
-        os.makedirs(os.path.dirname(local_image_path), exist_ok=True)
         download_image(url, local_image_path)
     return
 
