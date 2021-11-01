@@ -25,9 +25,11 @@ def get_better_image(image_details):
 
 def fetch_nasa_apod_images(api_key, images_directory, image_count=''):
     all_apod_info = parse_nasa_apod_images(api_key, image_count)
+    local_path = f'{images_directory}/nasa_apod'
+    os.makedirs(local_path, exist_ok=True)
     for image_id, apod_image_details in enumerate(all_apod_info):
         url = get_better_image(apod_image_details)
-        local_image_path = f'{images_directory}/nasa_apod/nasa_apod_{image_id}'
+        local_image_path = f'{local_path}/nasa_apod_{image_id}'
         os.makedirs(os.path.dirname(local_image_path), exist_ok=True)
         download_image(url, local_image_path)
     return
@@ -59,11 +61,12 @@ def get_epic_image_url(image_details):
 
 def fetch_nasa_epic_images(api_key, images_directory):
     all_epic_info = parse_nasa_epic_images(api_key)
+    local_path = f'{images_directory}/nasa_epic'
+    os.makedirs(local_path, exist_ok=True)
     for image_id, epic_image_details in enumerate(all_epic_info):
         url = get_epic_image_url(epic_image_details)
+        local_image_path = f'{local_path}/nasa_epic_{image_id}'
         params = {'api_key': api_key}
-        local_image_path = f'{images_directory}/nasa_epic/nasa_epic_{image_id}'
-        os.makedirs(os.path.dirname(local_image_path), exist_ok=True)
         download_image(url, local_image_path, params=params)
 
 
