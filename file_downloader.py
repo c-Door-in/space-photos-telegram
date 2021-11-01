@@ -3,7 +3,6 @@ import requests
 from urllib.parse import urlsplit, unquote
 
 
-
 def parse_url_file_ext(url):
     path = unquote(urlsplit(url).path)
     return os.path.splitext(path)[1]

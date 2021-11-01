@@ -19,10 +19,12 @@ def upload_photo(bot, chat_id, images_directory, period):
 def main():
     env = Env()
     env.read_env()
-    images_directory = env('LOCAL_IMAGES_DIR', default='images')
-    bot = telegram.Bot(token=env('TG_TOKEN'))
-    chat_id = env('CHAT_ID')
-    upload_photo(bot, chat_id, images_directory, env.int('PUBLISH_PERIOD', default=86400))
+    upload_photo(
+        telegram.Bot(token=env('TG_TOKEN')),
+        env('CHAT_ID'),
+        env('LOCAL_IMAGES_DIR', default='images'),
+        env.int('PUBLISH_PERIOD', default=86400)
+    )
 
 
 if __name__ == '__main__':
