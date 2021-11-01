@@ -20,11 +20,13 @@ def parse_spacex_random_launch_images():
 
 
 def fetch_spacex_launch_images(images_directory):
-    local_path = f'{images_directory}/spacex'
-    os.makedirs(local_path, exist_ok=True)
-    for image_id, image_url in enumerate(parse_spacex_random_launch_images()):
-        local_image_path = f'{local_path}/spacex_{image_id}'
-        download_image(image_url, local_image_path)
+    launch_images = parse_spacex_random_launch_images()
+    if launch_images:
+        local_path = f'{images_directory}/spacex'
+        os.makedirs(local_path, exist_ok=True)
+        for image_id, image_url in enumerate(launch_images):
+            local_image_path = f'{local_path}/spacex_{image_id}'
+            download_image(image_url, local_image_path)
     return
 
 
