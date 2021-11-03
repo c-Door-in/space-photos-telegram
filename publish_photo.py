@@ -5,7 +5,7 @@ import telegram
 from environs import Env
 
 
-def upload_photo(bot, chat_id, images_directory, period):
+def upload_photos(bot, chat_id, images_directory, period):
     for dir in listdir(images_directory):
         for file in listdir(f'{images_directory}/{dir}'):
             with open(f'{images_directory}/{dir}/{file}', 'rb') as photo:
@@ -19,7 +19,7 @@ def upload_photo(bot, chat_id, images_directory, period):
 def main():
     env = Env()
     env.read_env()
-    upload_photo(
+    upload_photos(
         telegram.Bot(token=env('TG_TOKEN')),
         env('CHAT_ID'),
         env('LOCAL_IMAGES_DIR', default='images'),
